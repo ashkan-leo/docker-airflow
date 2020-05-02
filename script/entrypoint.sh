@@ -7,6 +7,12 @@
 
 TRY_LOOP="20"
 
+# Set the permission for the docker socket
+# FIXME this is a terrible thing to do
+if [ -e /var/run/docker.sock ]; then
+  echo airflow | sudo -S chmod 777 /var/run/docker.sock;
+fi
+
 # Global defaults and back-compat
 : "${AIRFLOW_HOME:="/usr/local/airflow"}"
 : "${AIRFLOW__CORE__FERNET_KEY:=${FERNET_KEY:=$(python -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)")}}"

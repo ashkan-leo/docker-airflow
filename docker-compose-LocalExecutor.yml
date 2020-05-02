@@ -12,7 +12,7 @@ services:
                 max-file: "3"
 
     webserver:
-        image: puckel/docker-airflow:1.10.9
+        image: leott/docker-airflow:1.10.9
         restart: always
         depends_on:
             - postgres
@@ -24,6 +24,7 @@ services:
                 max-size: 10m
                 max-file: "3"
         volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
             - ./dags:/usr/local/airflow/dags
             # - ./plugins:/usr/local/airflow/plugins
         ports:
